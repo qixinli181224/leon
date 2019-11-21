@@ -1,0 +1,47 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///leyou
+    username: root
+    password: root
+  rabbitmq:
+    host: 127.0.0.1
+    virtual-host: /leyou
+    username: root
+    password: root
+    template:
+      retry: #重试策略，发送方配置
+        enabled: true #开启重试
+        initial-interval: 10000ms #第一次重试间隔时间是10s
+        max-interval: 80000ms #最后一次重试间隔时间是80s
+        multiplier: 2 #每次重试间隔时间的倍数
+    publisher-confirms: true #对消息要持久化
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+mybatis:
+  type-aliases-package: com.IBM.item.domain
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/*.xml
+mapper:
+  wrap-keyword: "`{0}`"
+logging:
+  level:
+    com.IBM: debug
+    com: debug
+
+
+
+
+
+
+
